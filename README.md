@@ -12,7 +12,7 @@ Praktikum ini mengimplementasikan topologi jaringan dengan beberapa router, swit
 
 Hasil pembagian IP dicatat pada spreadsheet, sedangkan proses penggabungan subnet (*supernetting*) ditunjukkan melalui gambar bertahap dari Canva.
 
-## 2. Topologi Akhir
+## 2. CIDR
 
 ![Topologi akhir dan penandaan subnet CIDR](images/topologi-cidr.png)
 
@@ -254,13 +254,27 @@ Untuk memperlihatkan satu blok yang **mencakup seluruh rentang subnet**, diperol
 
 **Perhatian:** `/19` merupakan *covering supernet* yang juga mencakup alamat yang tidak dialokasikan pada A1–A25. Pengelompokan pada Canva bersifat dokumentasi peringkasan alamat, **bukan perintah untuk memasang satu rute `/19` pada seluruh router**. Rute aktual tetap harus sesuai arah jaringan/next-hop.
 
-<!-- Opsional: tambahkan gambar hasil Canva untuk setiap tahap di bawah ini jika sudah diekspor -->
-<!-- ![Tahap A](images/tahap-a.png) -->
-<!-- ![Tahap B](images/tahap-b.png) -->
-<!-- ![Tahap C](images/tahap-c.png) -->
-<!-- ![Tahap D](images/tahap-d.png) -->
-<!-- ![Tahap E](images/tahap-e.png) -->
-<!-- ![Tahap F](images/tahap-f.png) -->
+
+### Dokumentasi Subnetting dan Supernetting CIDR
+
+#### Tahap A — Pembagian Subnet Awal
+![Tahap A](images/CIDR%28A%29.png)
+
+#### Tahap B — Penggabungan Pertama
+![Tahap B](images/CIDR%28B%29.png)
+
+#### Tahap C — Penggabungan Kedua
+![Tahap C](images/CIDR%28C%29.png)
+
+#### Tahap D — Penggabungan Ketiga
+![Tahap D](images/CIDR%28D%29.png)
+
+#### Tahap E — Penggabungan Keempat
+![Tahap E](images/CIDR%28E%29.png)
+
+#### Tahap F — Supernetting Akhir
+![Tahap F](images/CIDR%28F%29.png)
+
 
 ## 6. Kesimpulan
 
@@ -268,12 +282,5 @@ Topologi jaringan berhasil disusun di Cisco Packet Tracer dengan alokasi 25 subn
 
 Penggabungan CIDR ditampilkan bertahap pada spreadsheet dan Canva. Blok peringkas terkecil yang mencakup seluruh subnet adalah `192.240.0.0/19`, dengan catatan bahwa blok ini juga mencakup alamat tambahan di luar subnet yang digunakan.
 
-## 7. Berkas Pendukung
 
-- `Praktikum-Jarkom-4-CIDR.pkt` — file proyek Cisco Packet Tracer.
-- Spreadsheet Modul 4 — sheet **Rute**, **Pembagian IP - CIDR**, dan **Penggabungan - CIDR**.
-- `images/topologi-cidr.png` — hasil gambar topologi dan penandaan subnet dari Canva.
 
-## 8. Referensi
-
-- [Modul 4 Komdat Jarkom 2026 — GitHub Laboratorium](https://github.com/lab-kcks/modul-komdat-jarkom-2026/tree/main/Modul%204)
