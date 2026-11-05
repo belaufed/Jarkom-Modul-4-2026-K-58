@@ -14,10 +14,6 @@ Hasil pembagian IP dicatat pada spreadsheet, sedangkan proses penggabungan subne
 
 ## 2. CIDR
 
-![Topologi akhir dan penandaan subnet CIDR](images/topologi-cidr.png)
-
-> **Catatan:** Simpan hasil ekspor topologi dari Canva dengan nama `topologi-cidr.png` ke folder `images/` pada repository, agar gambar otomatis muncul di README. Jika ingin menampilkan tahap A–F secara terpisah, tambahkan gambar lain pada folder yang sama.
-
 Topologi terdiri atas router **Cyberia, Wired, Psyche, Copland, Schumann, Accela, Navi, Tachibana, Deus, Protocol7, Knights, Phantoma,** dan **Shibuya**. Cyberia terhubung dengan Cloud-PT; koneksi Cloud tersebut ditampilkan sebagai bagian topologi eksternal, bukan koneksi internet yang telah terbukti aktif.
 
 ## 3. Pembagian Alamat IP
