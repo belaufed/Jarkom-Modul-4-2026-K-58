@@ -279,4 +279,133 @@ Topologi jaringan berhasil disusun di Cisco Packet Tracer dengan alokasi 25 subn
 Penggabungan CIDR ditampilkan bertahap pada spreadsheet dan Canva. Blok peringkas terkecil yang mencakup seluruh subnet adalah `192.240.0.0/19`, dengan catatan bahwa blok ini juga mencakup alamat tambahan di luar subnet yang digunakan.
 
 
+# Laporan Praktikum Jaringan Komputer: Topologi "The Wired"
 
+Repositori ini berisi dokumentasi dan langkah pengerjaan praktikum jaringan komputer menggunakan simulator **GNS3**. Proyek ini mencakup perancangan arsitektur *routing*, perhitungan subnetting (VLSM), konfigurasi otomatis menggunakan skrip, dan pengujian *end-to-end*.
+
+---
+
+## Tahap 1: Perhitungan Subnetting (VLSM)
+
+Blok IP dasar yang digunakan adalah `192.240.0.0/16`. Subnetting dilakukan menggunakan metode **Route-Based Subnetting (Hierarchical Subnetting)** untuk mengelompokkan IP berdasarkan jalur *router*, yang berguna meringkas tabel *routing* (Supernetting).
+
+Berikut adalah tabel hasil pembagian IP VLSM yang diterapkan pada topologi:
+
+| Subnet | Network ID | Netmask | Broadcast | Range IP | Prefix |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **A1** | 192.240.0.0 | 255.255.252.0 | 192.240.3.255 | 192.240.0.1 - 192.240.3.254 | /22 |
+| **A2** | 192.240.4.0 | 255.255.252.0 | 192.240.7.255 | 192.240.4.1 - 192.240.7.254 | /22 |
+| **A3** | 192.240.8.0 | 255.255.254.0 | 192.240.9.255 | 192.240.8.1 - 192.240.9.254 | /23 |
+| **A4** | 192.240.10.0 | 255.255.254.0 | 192.240.11.255 | 192.240.10.1 - 192.240.11.254 | /23 |
+| **A5** | 192.240.12.0 | 255.255.255.0 | 192.240.12.255 | 192.240.12.1 - 192.240.12.254 | /24 |
+| **A6** | 192.240.13.0 | 255.255.255.0 | 192.240.13.255 | 192.240.13.1 - 192.240.13.254 | /24 |
+| **A7** | 192.240.14.0 | 255.255.255.128 | 192.240.14.127 | 192.240.14.1 - 192.240.14.126 | /25 |
+| **A8** | 192.240.14.128 | 255.255.255.128 | 192.240.14.255 | 192.240.14.129 - 192.240.14.254 | /25 |
+| **A9** | 192.240.15.0 | 255.255.255.192 | 192.240.15.63 | 192.240.15.1 - 192.240.15.62 | /26 |
+| **A10** | 192.240.15.64 | 255.255.255.192 | 192.240.15.127 | 192.240.15.65 - 192.240.15.126 | /26 |
+| **A11** | 192.240.15.128 | 255.255.255.192 | 192.240.15.191 | 192.240.15.129 - 192.240.15.190 | /26 |
+| **A12** | 192.240.15.192 | 255.255.255.192 | 192.240.15.255 | 192.240.15.193 - 192.240.15.254 | /26 |
+| **A13** | 192.240.16.0 | 255.255.255.224 | 192.240.16.31 | 192.240.16.1 - 192.240.16.30 | /27 |
+| **A14** | 192.240.16.32 | 255.255.255.248 | 192.240.16.39 | 192.240.16.33 - 192.240.16.38 | /29 |
+| **A15** | 192.240.16.40 | 255.255.255.248 | 192.240.16.47 | 192.240.16.41 - 192.240.16.46 | /29 |
+| **A16** | 192.240.16.48 | 255.255.255.248 | 192.240.16.55 | 192.240.16.49 - 192.240.16.54 | /29 |
+| **A17** | 192.240.16.56 | 255.255.255.252 | 192.240.16.59 | 192.240.16.57 - 192.240.16.58 | /30 |
+| **A18** | 192.240.16.60 | 255.255.255.252 | 192.240.16.63 | 192.240.16.61 - 192.240.16.62 | /30 |
+| **A19** | 192.240.16.64 | 255.255.255.252 | 192.240.16.67 | 192.240.16.65 - 192.240.16.66 | /30 |
+| **A20** | 192.240.16.68 | 255.255.255.252 | 192.240.16.71 | 192.240.16.69 - 192.240.16.70 | /30 |
+| **A21** | 192.240.16.72 | 255.255.255.252 | 192.240.16.75 | 192.240.16.73 - 192.240.16.74 | /30 |
+| **A22** | 192.240.16.76 | 255.255.255.252 | 192.240.16.79 | 192.240.16.77 - 192.240.16.78 | /30 |
+| **A23** | 192.240.16.80 | 255.255.255.252 | 192.240.16.83 | 192.240.16.81 - 192.240.16.82 | /30 |
+| **A24** | 192.240.16.84 | 255.255.255.252 | 192.240.16.87 | 192.240.16.85 - 192.240.16.86 | /30 |
+| **A25** | 192.240.16.88 | 255.255.255.252 | 192.240.16.91 | 192.240.16.89 - 192.240.16.90 | /30 |
+
+*(Catatan: Rute A17 hingga A25 adalah blok /30 yang digunakan khusus untuk jaringan point-to-point antar-router).*
+
+---
+
+## Tahap 2: Setup Klien (VPCS)
+
+Setiap PC virtual dikonfigurasi dengan IP Address dari *Range IP* dan dihubungkan ke *Gateway* (IP Router yang terhubung langsung).
+
+1. Buka *console* VPCS.
+2. Tambahkan IP address dan IP Gateway menggunakan sintaks: `ip [IP_PC]/[Prefix] [IP_Gateway]`.
+3. Simpan konfigurasi menggunakan perintah `save` agar tidak hilang saat direstart.
+
+**Contoh (Konfigurasi PC Karl):**
+```bash
+Karl> ip 192.240.0.2/22 192.240.0.1
+Karl> save
+```
+
+---
+
+## Tahap 3: Setup Router (Alpine Linux)
+
+Konfigurasi antarmuka jaringan dan tabel *routing* pada router dilakukan menggunakan *script* agar otomatis memuat konfigurasi.
+
+### 1. Membuat dan Mengedit Script
+Buka teks editor `vi` untuk membuat *script* konfigurasi IP di direktori root.
+```bash
+Router:~# vi /root/config-ip.sh
+```
+
+### 2. Isi Script Konfigurasi
+Tekan `i` untuk masuk ke *Insert Mode*, lalu tulis konfigurasi. Script ini bertugas untuk:
+* Mengatur IP pada port fisik (`ip addr add`).
+* Mengaktifkan IP antarmuka (`ip link set up`).
+* Menghidupkan fitur *forwarding* antar-subnet.
+* Menambahkan rute spesifik (*Static Route*) atau NAT (khusus router perbatasan).
+
+**Contoh isi script `/root/config-ip.sh` (Router Cyberia / Edge):**
+```bash
+#!/bin/ash
+# Konfigurasi IP Interface
+ip addr add 192.240.0.1/22 dev eth0
+ip link set eth0 up
+
+# Mengaktifkan IP Forwarding
+sysctl -w net.ipv4.ip_forward=1
+
+# Konfigurasi Static Route (Supernetting ke cabang bawah)
+ip route add 192.240.0.0/17 via 192.240.16.62
+
+# Konfigurasi NAT (Masquerade) ke Internet
+iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+```
+*(Tekan `Esc`, lalu ketik `:wq` dan tekan `Enter` untuk menyimpan dan keluar).*
+
+### 3. Eksekusi Script
+Setelah file dibuat, jalankan *script* tersebut (lakukan ini pada **setiap router** setelah GNS3 dinyalakan):
+```bash
+Router:~# sh /root/config-ip.sh
+```
+
+---
+
+## Tahap 4: Pengujian Keterhubungan (Testing)
+
+Setelah semua klien disematkan IP dan *script* router dieksekusi, verifikasi dilakukan melalui *console* VPCS.
+
+### 1. Pengecekan Routing Antar-Subnet (Ping & Trace)
+Digunakan untuk melihat apakah paket data berhasil menyeberangi berbagai router dari satu ujung ke ujung lain (End-to-End).
+
+```bash
+# Mengetes ping dari ujung ke ujung
+Karl> ping 192.240.15.3
+
+# Melacak jalur (hop) yang dilewati paket
+Karl> trace 192.240.15.3
+```
+*Hasil sukses akan menampilkan `Reply` secara konsisten pada PING, dan daftar IP router yang dilalui pada TRACE tanpa adanya pesan `Destination Host Unreachable`.*
+
+### 2. Pengecekan Koneksi Eksternal (NAT / Internet)
+Digunakan untuk menguji apakah jaringan *The Wired* sudah bisa mengakses internet berkat translasi NAT di Router Cyberia.
+
+```bash
+Collective> ping 8.8.8.8
+```
+*Hasil yang sukses akan memunculkan balasan dari server DNS Google (8.8.8.8).*
+
+### Dokumentasi Subnetting
+#### Pembagian Subnet
+![Subnetting VLSM](images/SubnettingVLSM.png)
